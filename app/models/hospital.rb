@@ -9,4 +9,6 @@
 #  updated_at   :datetime         not null
 #
 class Hospital < ApplicationRecord
+	has_many :doctor_hospitals, dependent: :destroy
+	has_many :doctors, through: :doctor_hospitals
 end
