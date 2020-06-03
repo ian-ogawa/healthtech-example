@@ -34,4 +34,6 @@ class User < ApplicationRecord
   has_many :customers, through: :user_doctors
 
 	enum role: [:customer, :doctor]
+
+  scope :users_doctors, -> { where(role: :doctor) }
 end
