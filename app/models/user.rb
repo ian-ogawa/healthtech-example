@@ -26,4 +26,12 @@ class User < ApplicationRecord
 
   has_many :doctor_hospitals, dependent: :destroy
 	has_many :hospitals, through: :doctor_hospitals
+
+  has_many :doctor_users, class_name: 'UserDoctor', foreign_key: 'doctor_id', dependent: :destroy
+  has_many :doctors, through: :doctor_users
+
+  has_many :user_doctors, dependent: :destroy
+  has_many :customers, through: :user_doctors
+
+	enum role: [:customer, :doctor]
 end

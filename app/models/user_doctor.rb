@@ -19,5 +19,6 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class UserDoctor < ApplicationRecord
-  belongs_to :user
+  belongs_to :customer, class_name: 'User', foreign_key: 'user_id'
+  belongs_to :doctor, class_name: 'User', foreign_key: 'doctor_id'
 end
