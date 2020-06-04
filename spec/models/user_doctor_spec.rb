@@ -3,8 +3,13 @@
 # Table name: user_doctors
 #
 #  id            :bigint           not null, primary key
+#  birth_date    :date
+#  email         :string
+#  name          :string
+#  notes         :text
+#  phone         :string
 #  schedule_date :datetime
-#  status        :integer
+#  status        :integer          default("booked")
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  doctor_id     :bigint

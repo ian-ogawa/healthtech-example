@@ -4,9 +4,26 @@
   <%= render "devise/shared/error_messages", resource: resource %>
 
   <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name" %>
+  </div>
+
+  <div class="field">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div>
+
+  <% if current_user.try(:role).eql?('doctor') %>
+    <div class="field">
+      <%= f.label :opening %><br />
+      <%= f.time_select :opening, autofocus: true %>
+    </div>
+
+    <div class="field">
+      <%= f.label :closing %><br />
+      <%= f.time_select :closing, autofocus: true %>
+    </div>
+  <% end %>
 
   <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>

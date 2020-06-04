@@ -3,9 +3,11 @@
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  closing                :time
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  name                   :string
+#  opening                :time
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -27,13 +29,21 @@ class User < ApplicationRecord
   has_many :doctor_hospitals, dependent: :destroy
 	has_many :hospitals, through: :doctor_hospitals
 
-  has_many :doctor_users, class_name: 'UserDoctor', foreign_key: 'doctor_id', dependent: :destroy
-  has_many :doctors, through: :doctor_users
-
   has_many :user_doctors, dependent: :destroy
-  has_many :customers, through: :user_doctors
+  has_many :doctors, through: :user_doctors
+
+  has_many :doctor_users, class_name: 'UserDoctor', foreign_key: 'doctor_id', dependent: :destroy
+  has_many :customers, through: :doctor_users
 
 	enum role: [:customer, :doctor]
 
-  scope :users_doctors, -> { where(role: :doctor) }
+  scope :role_doctors, -> { where(role: :doctor) }
+
+  def get_total_open_book
+    self.user_doctors.open_book.count
+  end
+
+  def get_opening_time
+    self.opening.nil? ? Time.now.beginning_of_day : self.opening.strftime('%H:%M').to_time
+  end
 end

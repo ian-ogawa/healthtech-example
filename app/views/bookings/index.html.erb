@@ -1,0 +1,19 @@
+<% @bookings.each do |booking| %>
+	<div class="card mb-2">
+		<div class="card-header">
+	    <%= booking.schedule_date.strftime('%d-%m-%Y') %>
+	  </div>
+	  <div class="card-body">
+	    <p class="card-text"><%= current_user.role.eql?('doctor') ? booking.customer.name : booking.doctor.name %></p>
+
+	    <% if booking.status.eql?('booked') %>
+	    	<%= link_to "Cancel", booking_url(booking.id, { status: 'cancelled' }), method: :put, class: "btn btn-danger" %>
+		    <% if current_user.role.eql?('doctor') %>
+		    	<%= link_to "Complete", booking_url(booking.id, { status: 'completed' }), method: :put, class: "btn btn-primary" %>
+		    <% end %>
+	    <% else %>
+	    	<a href="#" class="btn btn-secondary disabled" disabled><%= booking.status %></a>
+	    <% end %>
+	  </div>
+	</div>
+<% end %>

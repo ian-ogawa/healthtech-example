@@ -11,6 +11,14 @@
 	      <li class="nav-item">
 	      	<%= link_to 'Hospitals', hospitals_url, class: 'nav-link text-light' %>
 	      </li>
+	      <% if current_user %>
+		      <li class="nav-item">
+		      	<%= link_to 'Bookings', bookings_url, class: 'nav-link text-light' %>
+		      </li>
+		      <li class="nav-item">
+		      	<%= link_to 'Update', edit_user_registration_url, class: 'nav-link text-light' %>
+		      </li>
+		     <% end %>
 	      <li class="nav-item">
 	      	<% if current_user %>
 	      		<%= link_to 'Sign Out', destroy_user_session_url, method: :delete, class: 'nav-link text-light' %>
