@@ -1,0 +1,27 @@
+<div class="card mb-2">
+  <%= fa_icon "h-square 5x" %>
+  <div class="card-body">
+    <h5 class="card-title"><%= @hospital.name %></h5>
+    <p class="card-text"><%= @hospital.descriptions %></p>
+    <% if current_user.try(:role).eql?('doctor') && current_user.doctor_hospitals.map(&:hospital_id).exclude?(@hospital.id) %>
+      <%= link_to "Add as my hospital", hospital_add_hospitals_url(@hospital.id), method: :post, class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>
+
+
+<div class="row">
+  <% @hospital.doctors.each do |doctor| %>
+    <div class="col-sm-6 col-lg-4 pb-3 d-flex justify-content-center text-center">
+      <%= link_to "/doctor/#{doctor.id}" do %>
+        <div class="card" style="width: 18rem;">
+          <%= fa_icon "user-md 5x" %>
+          <div class="card-body">
+            <h5 class="card-title"><%= doctor.name %></h5>
+            <p class="card-text">availability: <%= doctor.opening.nil? ? '-' : "#{doctor.opening.strftime('%H:%M')} - #{doctor.closing.strftime('%H:%M')}" %></p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

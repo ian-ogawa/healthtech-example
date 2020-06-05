@@ -45,6 +45,7 @@ RSpec.describe UserDoctor, type: :model  do
         params["schedule_date(2i)"] = Time.now.day
         params["schedule_date(3i)"] = Time.now.month
 
+
         expect(UserDoctor.is_valid_time?(params)).to eq(false)
       end
     end

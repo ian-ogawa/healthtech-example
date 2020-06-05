@@ -6,8 +6,7 @@ Rails.application.routes.draw do
   get 'doctors', :to => "users#index"
 
   resources :bookings, only: [:index, :create, :update]
-  # post 'bookings', :to => "bookings#create"
-  # resources :users do
-  # end
-  resources :hospitals
+  resources :hospitals, only: [:index, :show] do
+  	post 'add_hospitals'
+  end
 end

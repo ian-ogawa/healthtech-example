@@ -6,7 +6,9 @@
         <h5 class="card-title"><%= @doctor.name %></h5>
         <p class="card-text">availability: <%= @doctor.opening.nil? ? '-' : "#{@doctor.opening.strftime('%H:%M')} - #{@doctor.closing.strftime('%H:%M')}" %></p>
         <% @doctor.hospitals.each do |hospital| %>
-          <p class="card-text"><%= hospital.name %></p>
+          <%= link_to hospital.name, hospital_url(hospital), class: "card-text" %>
+          <!-- <p class=""><%=  %></p> -->
+          <br>
         <% end %>
       </div>
     </div>
