@@ -34,11 +34,13 @@ class UserDoctor < ApplicationRecord
   scope :open_book, -> { where(status: :booked) }
 
   def self.is_valid_time?(params)
+    # byebug
   	doctor = User.find_by(id: params[:doctor_id], role: :doctor)
+    # byebug
   	book_date = Time.new(params["schedule_date(1i)"].to_i, params["schedule_date(2i)"].to_i, params["schedule_date(3i)"].to_i, Time.now.strftime('%H'), Time.now.strftime('%M'))
-  	open_book = doctor.get_total_open_book
+  	total_open_book = doctor.get_total_open_book
 		opening_time = doctor.get_opening_time
 
-		open_book <= 10 && (opening_time - Time.now) > 30.minutes
+		total_open_book <= 10 && (opening_time - Time.now) > 30.minutes
   end
 end

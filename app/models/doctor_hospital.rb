@@ -21,4 +21,6 @@
 class DoctorHospital < ApplicationRecord
   belongs_to :doctor, class_name: 'User', foreign_key: 'user_id'
   belongs_to :hospital
+
+  validates_presence_of :hospital_id, :user_id
 end

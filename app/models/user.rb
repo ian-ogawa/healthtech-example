@@ -40,7 +40,7 @@ class User < ApplicationRecord
   scope :role_doctors, -> { where(role: :doctor) }
 
   def get_total_open_book
-    self.user_doctors.open_book.count
+    self.doctor_users.open_book.count
   end
 
   def get_opening_time
